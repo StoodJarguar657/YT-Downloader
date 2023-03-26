@@ -28,24 +28,14 @@ def GetFormat():
     return Format
 
 def main():
+    Version = requests.get("https://raw.githubusercontent.com/StoodJarguar657/YT-Downloader/main/main.py").content.decode().split("\n")[0]
     print("Youtube link to mp3 / mp4 converter by StoodJarguar6577")
-    Option = input("____________\n1: Download\n2: Update\n____________\n> ")
-    link = ""
-    if Option == "1":
-        link = input("Link: ")
-    else:
-        os.system("cls")
-        print("Starting download")
-        Data = requests.get("https://raw.githubusercontent.com/StoodJarguar657/YT-Downloader/main/main.py").content.decode()
-        CurrentFilePath = os.path.dirname(os.path.abspath(__file__))
-        with open(CurrentFilePath, "w") as file:
-            file.write(Data)
-            quit()
+    print(Version)
 
 
+    link = input("Link: ")
 
     format = GetFormat()
-
 
     yt = pytube.YouTube(link)
     print("Downloading mp4")
@@ -56,8 +46,7 @@ def main():
     if format == "mp3":
         paths = os.listdir(os.getcwd())
 
-        # find most matching words since the video name doesnt math
-        # Olexesh - MAGISCH feat.Edin(prod.von PzY) [Official 4K Video] > Olexesh - MAGISCH feat Edin (prod von PzY) [Official 4K Video]
+        # find most matching words since the video name doesnt match
         Elements = video_name.replace(".", "").split(" ")
 
         # iterate over all paths
@@ -78,7 +67,6 @@ def main():
 
         video = ed.VideoFileClip(FinalPath)
         audio = video.audio
-        audio_name = video_name
         print("Saving as: ", FinalPath.replace(".mp4", ".mp3"))
         audio.write_audiofile(FinalPath.replace(".mp4", ".mp3"))
 
