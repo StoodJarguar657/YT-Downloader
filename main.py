@@ -1,4 +1,4 @@
-#Version V0.1
+Version = "0.1"
 try:
     import pytube
 except:
