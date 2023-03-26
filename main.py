@@ -12,26 +12,38 @@ except:
 
 import pytube, os
 import moviepy.editor as ed
+import requests
 
-def get_format():
-    format = input("Output: [mp3, mp4]: ")
+def GetFormat():
+    Format = input("Output: [mp3, mp4]: ")
 
-    if "mp3" in format:
-        format = "mp3"
-    if "mp4" in format:
-        format = "mp4"
+    if "mp3" in Format:
+        Format = "mp3"
+    if "mp4" in Format:
+        Format = "mp4"
 
-    if format != "mp4" and format != "mp3":
-        get_format()
-    return format
-
-
-
+    if Format != "mp4" and Format != "mp3":
+        GetFormat()
+    return Format
 
 def main():
     print("Youtube link to mp3 / mp4 converter by StoodJarguar6577")
-    link = input("Link: ")
-    format = get_format()
+    Option = input("____________\n1: Download\n2: Update\n____________\n> ")
+    link = ""
+    if Option == "1":
+        link = input("Link: ")
+    else:
+        os.system("cls")
+        print("Starting download")
+        Data = requests.get("https://raw.githubusercontent.com/StoodJarguar657/YT-Downloader/main/main.py").content.decode()
+        CurrentFilePath = os.path.dirname(os.path.abspath(__file__))
+        with open(CurrentFilePath, "w") as file:
+            file.write(Data)
+            quit()
+
+
+
+    format = GetFormat()
 
 
     yt = pytube.YouTube(link)
