@@ -1,4 +1,4 @@
-Version = "0.2"
+Version = "0.3"
 try:
     import pytube
 except:
@@ -52,25 +52,16 @@ def main():
 
     if format == "mp3":
         paths = os.listdir(os.getcwd())
-
-        # find most matching words since the video name doesnt match
-        Elements = video_name.replace(".", "").split(" ")
-
-        # iterate over all paths
-        Final = 0
         FinalPath = ""
-        for path in paths:
-            # split at every  " "
-            Target = path.split(" ")
-            match = 0
-            for i1 in range(0, len(Target)):
-                for i2 in range(0, len(Elements)):
-                    if Elements[i2].lower() in Target[i1].lower():
-                        match += 1
+        HighestTime = 0
+        for Path in paths:
+            if Path.endswith(".mp4"):
+                Stats = os.stat(Path)
+                Time = Stats.st_mtime
 
-            if match > Final:
-                Final = match
-                FinalPath = path
+                if Time > HighestTime:
+                    HighestTime = Time
+                    FinalPath = os.getcwd() + "\\" + Path
 
         video = ed.VideoFileClip(FinalPath)
         audio = video.audio
@@ -79,9 +70,10 @@ def main():
 
         audio.close()
         video.close()
-    
+
         os.remove(FinalPath)
 
         os.system("cls")
+
     main()
 main()
