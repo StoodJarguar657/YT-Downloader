@@ -46,11 +46,16 @@ def main():
 
     yt = pytube.YouTube(link)
     print("Downloading mp4")
-    video_name = yt.title
-    video = yt.streams.get_highest_resolution()
-    video.download()
+    Succeed = True
+    try:
+        video = yt.streams.get_highest_resolution()
+        video.download()
+    except Exception as error:
+        Succeed = False
+        os.system("cls")
+        print("[ERROR]", error)
 
-    if format == "mp3":
+    if format == "mp3" and Succeed:
         paths = os.listdir(os.getcwd())
         FinalPath = ""
         HighestTime = 0
