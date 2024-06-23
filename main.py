@@ -110,6 +110,7 @@ class YTDownloader():
         Mp4File = os.path.join(CurrentDir, self.YT.title + ".mp4")
 
         if Format == "mp3":
+            self.YT.streams.filter(file_extension=".mp3")
             if os.path.exists(Mp3File):
                 print("File already exists!")
                 time.sleep(2)
@@ -126,10 +127,8 @@ class YTDownloader():
                 os.system("cls")
                 return
 
-            # When it succeeded, rename the file from mp4 to mp3
-            os.rename(Mp4File, Mp3File)
-
         if Format == "mp4":
+            self.YT.streams.filter(file_extension=".mp4")
             if os.path.exists(Mp4File):
                 print("File already exists!")
                 time.sleep(2)
