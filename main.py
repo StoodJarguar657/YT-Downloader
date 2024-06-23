@@ -71,7 +71,7 @@ class YTDownloader():
     def PrintProgress(self, Current, Total):
         Present = ("{0:.1f}").format(100 * (Current / float(Total)))
         FilledLength = int(100 * Current // Total)
-        Bar = '█' * FilledLength + '-' * (100 - FilledLength)
+        Bar = '#' * FilledLength + '-' * (100 - FilledLength)
         print(f'Progress\r |{Bar}| {Present}% Complete', end="\r")
         if Current == Total:
             print()
